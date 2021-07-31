@@ -1,0 +1,5 @@
+enum Category {
+    HOME_APPLIANCE
+    TV
+    GAMES
+}

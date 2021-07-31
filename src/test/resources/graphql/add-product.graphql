@@ -1,0 +1,9 @@
+mutation {
+    addProduct(id:"6", name:"Dishwasher", sku:"666666", category:"HOME_APPLIANCE", manufacturer:"Bosch"){
+        id
+        name,
+        sku,
+        category,
+        manufacturer
+    }
+}

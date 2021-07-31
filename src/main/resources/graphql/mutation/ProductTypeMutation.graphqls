@@ -1,0 +1,3 @@
+type Mutation {
+    addProduct(id: ID!, name: String!, sku: String!, category: String, manufacturer: String!) : Product!
+}

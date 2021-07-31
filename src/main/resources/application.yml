@@ -1,0 +1,31 @@
+spring:
+      profiles:
+            active:
+                  @spring.profiles.active@
+
+server:
+      port: 8080
+      http2:
+            enabled: true
+
+elasticsearch.port: 9200
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+
+elasticsearch:
+      host: localhost
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+elasticsearch:
+      host: elasticsearch

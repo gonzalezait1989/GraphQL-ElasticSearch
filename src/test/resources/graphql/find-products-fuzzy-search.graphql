@@ -1,0 +1,9 @@
+query {
+  productFuzzySearch(query: "freezar"){
+    id
+    name,
+    sku,
+    category,
+    manufacturer
+  }
+}
