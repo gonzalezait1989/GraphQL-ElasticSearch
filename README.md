@@ -1,8 +1,6 @@
 REQUIREMENTS
 ============
 .- First of all, install 'docker' in your computer.
-.- Rename files src/main/resources/static/*.js_s to *.js
-
 
 COMMENTS
 ========
