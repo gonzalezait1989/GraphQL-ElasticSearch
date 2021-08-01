@@ -2,6 +2,8 @@ package com.aitor.elasticsearch.graphql.productsearchapp;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -10,21 +12,25 @@ import java.util.List;
 import com.aitor.elasticsearch.graphql.productsearchapp.model.Product;
 import com.aitor.elasticsearch.graphql.productsearchapp.model.Product.Category;
 import com.aitor.elasticsearch.graphql.productsearchapp.repositories.ProductDAO;
+import com.aitor.elasticsearch.graphql.productsearchapp.service.ProductService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProductElasticTests {
+public class ProductServiceTests {
+
+    @Mock
+    private ProductDAO productDAO;
 
     @Autowired
-    private ProductDAO productDAO;
+    private ProductService productService;
 
     @Test
     public void testSave() {
-
         Product product = new Product("1", "Freezer", "123456", Category.HOME_APPLIANCE, "LG");
-        Product testProduct = productDAO.save(product);
+        Product testProduct = productService.save(product);
 
         assertNotNull(product.getId());
         assertEquals(product.getName(), testProduct.getName());
@@ -35,11 +41,9 @@ public class ProductElasticTests {
 
     @Test
     public void testFindFuzzy() {
-
         Product product = new Product("1", "Freezer", "123456", Category.HOME_APPLIANCE, "LG");
-        productDAO.save(product);
 
-        List<Product> testProducts = productDAO.getByCustomQuery("LG Freezar");
+        List<Product> testProducts = productService.getByCustomQuery("LG Freezar");
 
         assertNotNull(testProducts);
         assertEquals(testProducts.size(), 1);

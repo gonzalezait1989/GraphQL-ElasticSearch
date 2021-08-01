@@ -1,5 +1,5 @@
 mutation {
-    addProduct(id:"6", name:"Dishwasher", sku:"666666", category:"HOME_APPLIANCE", manufacturer:"Bosch"){
+    addProduct(id:"1", name:"Freezer", sku:"123456", category:"HOME_APPLIANCE", manufacturer:"LG"){
         id
         name,
         sku,
