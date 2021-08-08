@@ -1,21 +1,5 @@
 version: '3.8'
 services:
-  product:
-    build:
-      context: .
-    ports:
-      - 8000:8000
-      - 8080:8080
-    environment:
-      - SERVER_PORT=8080
-    volumes:
-      - ./:/app
-    command: ./mvnw spring-boot:run -Pdocker -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
-    depends_on: 
-      - elasticsearch
-    networks:
-      - backend  
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION:-7.3.0}
     environment:
@@ -47,6 +31,21 @@ services:
       - esdata:/usr/share/elasticsearch/data
     networks:
       - backend
+      
+  product:
+    build: .
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2
+    working_dir: /app
+    ports:
+      - 8080:8080
+      - 5005:5005
+    command: ./mvnw spring-boot:run -Pdocker -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+    depends_on: 
+      - elasticsearch
+    networks:
+      - backend  
 
 volumes:
   esdata:
